@@ -1,9 +1,10 @@
 import { Flex, Card, Table } from "@radix-ui/themes";
 import React from "react";
-import AddButton from "./_listCopmponents/AddButton";
-import FilterPriorityTasks from "./_listCopmponents/FilterPriorityTasks";
-import FilterStatusTasks from "./_listCopmponents/FilterStatusTasks";
+
 import Skeleton from "@/components/Skeleton";
+import FilterStatusTasks from "@/components/tasksComponents/FilterStatusTasks";
+import FilterPriorityTasks from "@/components/tasksComponents/FilterPriorityTasks";
+import AddButton from "@/components/tasksComponents/AddButton";
 
 const loading = () => {
   const columns = [1, 2, 3, 4, 5, 6];

@@ -5,14 +5,20 @@ import AssigenToUser from "./AssigenToUser";
 import { Task } from "@prisma/client";
 import SelectStatus from "./SelectStatus";
 import SelectPriority from "./SelectPriority";
+import { auth } from "@/auth";
 
-const TaskActions = ({ task }: { task: Task }) => {
+const TaskActions = async ({ task }: { task: Task }) => {
+  const session = await auth();
   return (
     <Flex gap="3" direction="column">
-      <AssigenToUser task={task} />
       <SelectStatus status={task.status} id={task.id} />
-      <SelectPriority priority={task.priority} id={task.id} />
-      <DeleteButton id={task.id} />
+      {session?.user?.role === "ADMIN" && (
+        <>
+          <SelectPriority priority={task.priority} id={task.id} />
+          <AssigenToUser task={task} />
+          <DeleteButton id={task.id} />
+        </>
+      )}
     </Flex>
   );
 };

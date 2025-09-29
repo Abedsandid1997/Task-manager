@@ -1,10 +1,10 @@
 import { prisma } from "@/lib/prisma";
 import React from "react";
 import { notFound } from "next/navigation";
-import TaskDetail from "./_idComponents/TaskDetail";
 import { Box, Card, Grid } from "@radix-ui/themes";
 import TaskActions from "./_idComponents/TaskActions";
 import { auth } from "@/auth";
+import TaskDetail from "@/components/tasksComponents/TaskDetail";
 
 const page = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
@@ -19,7 +19,7 @@ const page = async ({ params }: { params: Promise<{ id: string }> }) => {
         <Box className="md:col-span-4">
           <TaskDetail task={task} />{" "}
         </Box>
-        {session && (
+        {session?.user?.role && (
           <Box>
             <TaskActions task={task} />
           </Box>

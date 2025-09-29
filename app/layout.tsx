@@ -2,7 +2,7 @@ import "@radix-ui/themes/styles.css";
 import "./globals.css";
 import type { Metadata } from "next";
 import { SessionProvider } from "next-auth/react";
-import Navbar from "./Navbar";
+import Navbar from "./_navbarsComponents/Navbar";
 import { Container, Theme } from "@radix-ui/themes";
 import { Inter } from "next/font/google";
 import QueryClientProvider from "./QueryClientProvider";

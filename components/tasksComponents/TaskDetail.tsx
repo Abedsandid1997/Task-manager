@@ -3,7 +3,7 @@ import { Task } from "@prisma/client";
 import { Box, Card, Flex, Heading, Text } from "@radix-ui/themes";
 import TaskEditDescription from "./TaskEditDescription";
 
-const TaskDetail = ({ task }: { task: Task }) => {
+const TaskDetail = async ({ task }: { task: Task }) => {
   return (
     <>
       <Flex gap="2" direction="column">

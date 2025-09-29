@@ -25,7 +25,8 @@ const SelectPriority = ({
   const updatePriority = async (newPriority: Priority) => {
     try {
       setIsSubmitting(true);
-      await axios.patch(`/api/tsssask/${id}`, { priority: newPriority });
+      await axios.patch(`/api/task/${id}`, { priority: newPriority });
+      setIsSubmitting(false);
       router.refresh();
     } catch (error) {
       setError(true);
@@ -39,7 +40,7 @@ const SelectPriority = ({
         <Select.Content color="gray" variant="soft">
           <Select.Group>
             <Card>
-              <Select.Label>Status</Select.Label>
+              <Select.Label>Priority</Select.Label>
             </Card>
             <Card>
               {prioritys.map((priority) => (

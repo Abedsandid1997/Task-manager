@@ -10,7 +10,7 @@ const statuses: { label: string; value: Status }[] = [
   { label: "Done", value: "DONE" },
 ];
 
-const FilterStatusTasks = () => {
+const FilterStatusTasks = ({role}: { role: string }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   return (
@@ -24,7 +24,7 @@ const FilterStatusTasks = () => {
         if (searchParams.get("orderBy"))
           params.append("orderBy", searchParams.get("orderBy")!.toString());
         const query = params.size ? "?" + params : " ";
-        router.push(`/tasks/list${query}`);
+        router.push(`/${role}/tasks/list${query}`);
       }}
     >
       <Select.Trigger placeholder="Status" />
