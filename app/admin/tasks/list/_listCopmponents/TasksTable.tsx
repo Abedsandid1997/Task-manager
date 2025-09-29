@@ -5,27 +5,6 @@ import { Card, Table } from "@radix-ui/themes";
 import Link from "next/link";
 import React from "react";
 
-const columns: { label: string; value: string; className?: string }[] = [
-  { label: "Title", value: "title" },
-  {
-    label: "Status",
-    value: "status",
-    className: "hidden md:table-cell",
-  },
-  {
-    label: "Priority",
-    value: "priority",
-    className: "hidden md:table-cell",
-  },
-  {
-    label: "Created at",
-    value: "createdAt",
-    className: "hidden md:table-cell",
-  },
-];
-
-export const columnNames = columns.map((column) => column.value);
-
 export interface TaskQuery {
   orderBy: keyof Task;
   status: Status;
@@ -101,3 +80,24 @@ const TasksTable = async ({ tasks, searchParams }: Props) => {
 };
 
 export default TasksTable;
+
+const columns: { label: string; value: string; className?: string }[] = [
+  { label: "Title", value: "title" },
+  {
+    label: "Status",
+    value: "status",
+    className: "hidden md:table-cell",
+  },
+  {
+    label: "Priority",
+    value: "priority",
+    className: "hidden md:table-cell",
+  },
+  {
+    label: "Created at",
+    value: "createdAt",
+    className: "hidden md:table-cell",
+  },
+];
+
+export const columnNames = columns.map((column) => column.value);

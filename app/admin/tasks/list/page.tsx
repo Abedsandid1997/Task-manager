@@ -5,23 +5,37 @@ import TasksTable, {
   TaskQuery,
 } from "./_listCopmponents/TasksTable";
 import { prisma } from "@/lib/prisma";
-import { Priority, Status } from "@prisma/client";
+import { Priority, Status, Task } from "@prisma/client";
 import Pagination from "@/components/Pagination";
 import TasksActions from "@/components/tasksComponents/TasksActions";
 
-const Tasks = async ({ searchParams }: { searchParams: TaskQuery }) => {
-  const params = await searchParams;
+interface PageProps {
+  searchParams?: Record<string, string | string[]>;
+}
+
+const Tasks = async ({ searchParams }: PageProps) => {
+  searchParams = await searchParams;
+  const params: TaskQuery = {
+    orderBy: (searchParams?.orderBy as keyof Task) || undefined,
+    status: (searchParams?.status as Status) || undefined,
+    priority: (searchParams?.priority as Priority) || undefined,
+    page: (searchParams?.page as string) || "1",
+  };
   const pageSize = 10;
   const page = parseInt(params.page) || 1;
+
   const statuses = Object.values(Status);
-  const prioritys = Object.values(Priority);
+  const priorities = Object.values(Priority);
+
   const status = statuses.includes(params.status) ? params.status : undefined;
-  const priority = prioritys.includes(params.priority)
+  const priority = priorities.includes(params.priority)
     ? params.priority
     : undefined;
+
   const orderBy = columnNames.includes(params.orderBy)
     ? { [params.orderBy]: "asc" }
     : undefined;
+
   const tasks = await prisma.task.findMany({
     skip: (page - 1) * pageSize,
     take: pageSize,
@@ -38,7 +52,6 @@ const Tasks = async ({ searchParams }: { searchParams: TaskQuery }) => {
       <TasksActions role="admin" />
       <TasksTable tasks={tasks} searchParams={params} />
       <Flex align="center" justify="center" mt="2">
-        {" "}
         <Pagination
           currentPage={page}
           totalItems={tasksCount}
