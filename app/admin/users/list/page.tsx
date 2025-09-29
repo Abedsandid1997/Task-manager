@@ -32,7 +32,6 @@ const Users = async ({ searchParams }: { searchParams: { page: string } }) => {
       },
     },
   });
-  console.log(users, "users");
   const usersCount = await prisma.user.count();
   if (!users) notFound();
   const usersWithStatusCount = users.map((user) => {
@@ -51,7 +50,6 @@ const Users = async ({ searchParams }: { searchParams: { page: string } }) => {
       statusCount,
     };
   });
-  console.log(usersWithStatusCount, "usersWithStatusCount");
   const statuses = ["TODO", "IN_PROGRESS", "DONE"];
   return (
     <Flex

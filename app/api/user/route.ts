@@ -24,7 +24,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  console.log(body, "body");
   const validation = createUserValidation.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error, { status: 400 });
