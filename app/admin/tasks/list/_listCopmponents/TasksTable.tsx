@@ -6,9 +6,9 @@ import Link from "next/link";
 import React from "react";
 
 export interface TaskQuery {
-  orderBy: keyof Task;
-  status: Status;
-  priority: Priority;
+  orderBy: string;
+  status: string;
+  priority: string;
   page: string;
 }
 

@@ -5,31 +5,22 @@ import TasksTable, {
   TaskQuery,
 } from "./_listCopmponents/TasksTable";
 import { prisma } from "@/lib/prisma";
-import { Priority, Status, Task } from "@prisma/client";
+import { Priority, Status } from "@prisma/client";
 import Pagination from "@/components/Pagination";
 import TasksActions from "@/components/tasksComponents/TasksActions";
 
-interface PageProps {
-  searchParams?: Record<string, string | string[]>;
-}
-
-const Tasks = async ({ searchParams }: PageProps) => {
-  searchParams = await searchParams;
-  const params: TaskQuery = {
-    orderBy: (searchParams?.orderBy as keyof Task) || undefined,
-    status: (searchParams?.status as Status) || undefined,
-    priority: (searchParams?.priority as Priority) || undefined,
-    page: (searchParams?.page as string) || "1",
-  };
+const Tasks = async ({ searchParams }: { searchParams: TaskQuery }) => {
+  const params = await searchParams;
   const pageSize = 10;
   const page = parseInt(params.page) || 1;
+  const statuses = ["TODO", "IN_PROGRESS", "DONE"];
+  const prioritys = ["LOW", "MEDIUM", "HIGH"];
+  const status = statuses.includes(params.status)
+    ? (params.status as Status)
+    : undefined;
 
-  const statuses = Object.values(Status);
-  const priorities = Object.values(Priority);
-
-  const status = statuses.includes(params.status) ? params.status : undefined;
-  const priority = priorities.includes(params.priority)
-    ? params.priority
+  const priority = prioritys.includes(params.priority)
+    ? (params.priority as Priority)
     : undefined;
 
   const orderBy = columnNames.includes(params.orderBy)
@@ -52,6 +43,7 @@ const Tasks = async ({ searchParams }: PageProps) => {
       <TasksActions role="admin" />
       <TasksTable tasks={tasks} searchParams={params} />
       <Flex align="center" justify="center" mt="2">
+        {" "}
         <Pagination
           currentPage={page}
           totalItems={tasksCount}
