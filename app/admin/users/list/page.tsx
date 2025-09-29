@@ -5,8 +5,13 @@ import { Avatar, Card, Flex, Heading, Table } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import React from "react";
 
-const Users = async ({ searchParams }: { searchParams: { page: string } }) => {
-  const page = (await parseInt(searchParams.page)) || 1;
+const Users = async ({
+  searchParams,
+}: {
+  searchParams?: { page?: string };
+}) => {
+  const page = parseInt(searchParams?.page || "1", 10);
+  // const page = parseInt(params.page) || 1;
   const pageSize = 10;
   const users = await prisma.user.findMany({
     skip: (page - 1) * pageSize,
