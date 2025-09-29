@@ -19,7 +19,7 @@ const Tasks = async ({
     page: string;
   };
 }) => {
-  const params = await searchParams;
+  const params = searchParams;
   const pageSize = 10;
   const page = parseInt(params.page) || 1;
   const statuses = ["TODO", "IN_PROGRESS", "DONE"];
