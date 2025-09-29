@@ -28,7 +28,7 @@ const SelectPriority = ({
       await axios.patch(`/api/task/${id}`, { priority: newPriority });
       setIsSubmitting(false);
       router.refresh();
-    } catch (error) {
+    } catch (_error) {
       setError(true);
       setIsSubmitting(false);
     }

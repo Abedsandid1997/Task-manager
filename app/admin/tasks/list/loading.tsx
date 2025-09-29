@@ -12,8 +12,8 @@ const loading = () => {
     <Flex direction="column" gap="3">
       <Flex justify="between">
         <Flex gapX="3">
-          <FilterStatusTasks />
-          <FilterPriorityTasks />
+          <FilterStatusTasks role="admin" />
+          <FilterPriorityTasks role="admin" />
         </Flex>
         <AddButton />
       </Flex>

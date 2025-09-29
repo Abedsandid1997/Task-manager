@@ -22,7 +22,7 @@ const SelectStatus = ({ status, id }: { status: Status; id: string }) => {
       await axios.patch(`/api/task/${id}`, { status: newStatus });
       setIsSubmitting(false);
       router.refresh();
-    } catch (error) {
+    } catch (_error) {
       setError(true);
       setIsSubmitting(false);
     }

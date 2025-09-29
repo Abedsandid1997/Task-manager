@@ -1,8 +1,6 @@
-import { TaskBadge } from "@/components";
 import Skeleton from "@/components/Skeleton";
 import { Box, Card, Flex, Grid, Heading, Text } from "@radix-ui/themes";
 import React from "react";
-import TaskEditDescription from "./_idComponents/TaskEditDescription";
 
 const loading = () => {
   return (
