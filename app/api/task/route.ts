@@ -4,7 +4,8 @@ import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
   const session = await auth();
-  if (!session) return NextResponse.json("Unauthorized", { status: 401 });
+  if (session?.user?.role !== "ADMIN")
+    return NextResponse.json("Unauthorized", { status: 401 });
   const body = await request.json();
   const validation = taskValidation.safeParse(body);
   if (!validation.success)

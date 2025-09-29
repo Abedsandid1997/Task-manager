@@ -6,8 +6,8 @@ import TasksTable, {
 } from "./_listCopmponents/TasksTable";
 import { prisma } from "@/lib/prisma";
 import { Priority, Status } from "@prisma/client";
-import TasksActions from "./TasksActions";
-import Pagination from "../../../components/Pagination";
+import Pagination from "@/components/Pagination";
+import TasksActions from "@/components/tasksComponents/TasksActions";
 
 const Tasks = async ({ searchParams }: { searchParams: TaskQuery }) => {
   const params = await searchParams;
@@ -35,7 +35,7 @@ const Tasks = async ({ searchParams }: { searchParams: TaskQuery }) => {
 
   return (
     <Flex direction="column" gap="3">
-      <TasksActions />
+      <TasksActions role="admin" />
       <TasksTable tasks={tasks} searchParams={params} />
       <Flex align="center" justify="center" mt="2">
         {" "}

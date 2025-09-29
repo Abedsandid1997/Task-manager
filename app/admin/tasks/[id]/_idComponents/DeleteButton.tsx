@@ -13,7 +13,7 @@ const DeleteButton = ({ id }: { id: string }) => {
     try {
       setIsSubmitting(true);
       await axios.delete(`/api/task/${id}`);
-      router.push("/task/list");
+      router.push("/admin/tasks/list");
     } catch (error) {
       setError(true);
       setIsSubmitting(false);

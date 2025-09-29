@@ -8,7 +8,8 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   const session = await auth();
-  if (!session) return NextResponse.json("Unauthorized", { status: 401 });
+  if (session?.user?.role !== "ADMIN")
+    return NextResponse.json("Unauthorized", { status: 401 });
   const id = await params.id;
 
   const existingTask = await prisma.task.findUnique({

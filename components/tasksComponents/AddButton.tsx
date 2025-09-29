@@ -5,7 +5,7 @@ import React from "react";
 const AddButton = () => {
   return (
     <Button>
-      <Link href="/tasks/new">New task</Link>
+      <Link href="/admin/tasks/new">New task</Link>
     </Button>
   );
 };

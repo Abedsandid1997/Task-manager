@@ -16,7 +16,7 @@ const TaskForm = () => {
   const createTask = async (data: TaskFormData) => {
     try {
       await axios.post("/api/task", data);
-      router.push("/tasks/list");
+      router.push("/admin/tasks/list");
     } catch (error) {
       setError(`Unexpected error ${error}`);
     }

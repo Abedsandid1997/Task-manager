@@ -11,8 +11,9 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { taskUpdateValidation } from "@/app/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ErrorMessage } from "@/components/index";
+import { ErrorMessage } from "../index";
 import toast, { Toaster } from "react-hot-toast";
+import { useSession } from "next-auth/react";
 const SimpleMDE = dynamic(() => import("react-simplemde-editor"), {
   ssr: false,
 });
@@ -25,6 +26,8 @@ const TaskEditDescription = ({
   description: string;
   id: string;
 }) => {
+  const { data: session } = useSession();
+
   const {
     control,
     handleSubmit,
@@ -39,12 +42,14 @@ const TaskEditDescription = ({
         <Card mt="2">
           <Flex justify="between">
             <Heading size="3">Description:</Heading>
-            <Button
-              onClick={() => setShowEditor(true)}
-              className="!cursor-pointer"
-            >
-              <Pencil2Icon />
-            </Button>
+            {session?.user?.role === "ADMIN" && (
+              <Button
+                onClick={() => setShowEditor(true)}
+                className="!cursor-pointer"
+              >
+                <Pencil2Icon />
+              </Button>
+            )}
           </Flex>
           <Card className="prose max-w-full" mt="3">
             <ReactMarkdown>{description}</ReactMarkdown>

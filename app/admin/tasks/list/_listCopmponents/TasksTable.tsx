@@ -69,7 +69,9 @@ const TasksTable = async ({ tasks, searchParams }: Props) => {
           {tasks.map((task) => (
             <Table.Row key={task.id}>
               <Table.RowHeaderCell p="5" className="text-xl">
-                <TableLinks href={`/tasks/${task.id}`}>{task.title}</TableLinks>{" "}
+                <TableLinks href={`/admin/tasks/${task.id}`}>
+                  {task.title}
+                </TableLinks>{" "}
                 <div className="block mt-2 md:hidden">
                   {" "}
                   <strong className="font-bold">Status: </strong>

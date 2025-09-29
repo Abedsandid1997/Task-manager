@@ -10,7 +10,7 @@ const prioritys: { label: string; value: Priority }[] = [
   { label: "Medium", value: "MEDIUM" },
 ];
 
-const FilterPriorityTasks = () => {
+const FilterPriorityTasks = ({ role }: { role: string }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   return (
@@ -24,7 +24,7 @@ const FilterPriorityTasks = () => {
         if (searchParams.get("orderBy"))
           params.append("orderBy", searchParams.get("orderBy")!.toString());
         const query = params.size ? "?" + params : " ";
-        router.push(`/tasks/list${query}`);
+        router.push(`/${role}/tasks/list${query}`);
       }}
     >
       <Select.Trigger placeholder="Priority" />

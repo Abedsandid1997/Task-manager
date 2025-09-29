@@ -1,44 +1,9 @@
 "use client";
-import { Avatar, Button, DropdownMenu, Flex, TabNav } from "@radix-ui/themes";
-import NavLink from "@/components/NavLink";
-import { usePathname } from "next/navigation";
+import { Flex, DropdownMenu, Avatar, Button } from "@radix-ui/themes";
 import { signIn, signOut, useSession } from "next-auth/react";
+import React from "react";
 import { LuLogIn } from "react-icons/lu";
 import { TbLogout2 } from "react-icons/tb";
-const Navbar = () => {
-  return (
-    <Flex direction="column" gap="4" pb="2" pt="2">
-      <TabNav.Root color="gray">
-        <Flex justify="between" className="w-full" align="center" height="4rem">
-          <NavLinks />
-          <AuthLinks />
-        </Flex>
-      </TabNav.Root>
-    </Flex>
-  );
-};
-
-const NavLinks = () => {
-  const currnetPath = usePathname();
-  const links = [
-    { label: "Dashboard", href: "/" },
-    { label: "Tasks", href: "/tasks/list" },
-    { label: "Users", href: "/users/list" },
-  ];
-  return (
-    <Flex>
-      {links.map((link) => (
-        <NavLink
-          key={link.label}
-          href={link.href}
-          active={currnetPath === link.href}
-        >
-          {link.label}
-        </NavLink>
-      ))}
-    </Flex>
-  );
-};
 
 const AuthLinks = () => {
   const { data: session } = useSession();
@@ -71,4 +36,4 @@ const AuthLinks = () => {
   );
 };
 
-export default Navbar;
+export default AuthLinks;
