@@ -47,7 +47,7 @@ export default function SignInPage() {
 
   const handleProviderSignIn = async (providerId: string) => {
     try {
-      await signIn(providerId);
+      await signIn(providerId, { redirectTo: "/" });
     } catch (err) {
       console.error(err);
       router.push(`${SIGNIN_ERROR_URL}?error=ProviderSignin`);
