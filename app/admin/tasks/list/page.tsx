@@ -49,4 +49,6 @@ const Tasks = async ({ searchParams }: { searchParams: TaskQuery }) => {
   );
 };
 
+export const dynamic = "force-dynamic";
+
 export default Tasks;

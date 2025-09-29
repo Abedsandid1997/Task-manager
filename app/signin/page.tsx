@@ -1,15 +1,59 @@
-import { redirect } from "next/navigation";
-import { signIn } from "@/auth";
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { providerMap } from "@/auth.config";
-import { AuthError } from "next-auth";
 import Link from "next/link";
 import { Button } from "@radix-ui/themes";
 
-const SIGNIN_ERROR_URL = "/error";
+const SIGNIN_ERROR_URL = "/signin";
 
-export default async function SignInPage(props: {
-  searchParams: { callbackUrl: string | undefined };
-}) {
+export default function SignInPage() {
+  const router = useRouter();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleCredentialsSignIn = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const formData = new FormData(e.currentTarget);
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    try {
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      if (result?.ok) {
+        router.push("/");
+      } else {
+        setError(result?.error ?? "CredentialsSignin");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("UnexpectedError");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleProviderSignIn = async (providerId: string) => {
+    try {
+      await signIn(providerId, { redirectTo: "/" }); 
+    } catch (err) {
+      console.error(err);
+      router.push(`${SIGNIN_ERROR_URL}?error=ProviderSignin`);
+    }
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md space-y-8 rounded-xl bg-white p-8 shadow-lg">
@@ -27,23 +71,11 @@ export default async function SignInPage(props: {
               create a new account
             </Link>
           </p>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
         </div>
 
         {/* Credentials form */}
-        <form
-          action={async (formData) => {
-            "use server";
-            try {
-              await signIn("credentials", formData, { redirectTo: "/" });
-            } catch (error) {
-              if (error instanceof AuthError) {
-                return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`);
-              }
-              throw error;
-            }
-          }}
-          className="mt-6 space-y-4"
-        >
+        <form onSubmit={handleCredentialsSignIn} className="mt-6 space-y-4">
           <div>
             <label
               htmlFor="email"
@@ -74,8 +106,8 @@ export default async function SignInPage(props: {
               className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
           </div>
-          <Button type="submit" className="!w-full">
-            Sign in
+          <Button type="submit" className="!w-full" disabled={loading}>
+            {loading ? "Signing in..." : "Sign in"}
           </Button>
         </form>
 
@@ -96,26 +128,13 @@ export default async function SignInPage(props: {
         {/* Social providers */}
         <div className="grid gap-3">
           {Object.values(providerMap).map((provider) => (
-            <form
+            <Button
               key={provider.id}
-              action={async () => {
-                "use server";
-                try {
-                  await signIn(provider.id, {
-                    redirectTo: "/",
-                  });
-                } catch (error) {
-                  if (error instanceof AuthError) {
-                    return redirect(`${SIGNIN_ERROR_URL}?error=${error.type}`);
-                  }
-                  throw error;
-                }
-              }}
+              className="!w-full"
+              onClick={() => handleProviderSignIn(provider.id)}
             >
-              <Button type="submit" className="!w-full">
-                <span>Sign in with {provider.name}</span>
-              </Button>
-            </form>
+              Sign in with {provider.name}
+            </Button>
           ))}
         </div>
       </div>
