@@ -32,6 +32,7 @@ const Users = async ({ searchParams }: { searchParams: { page: string } }) => {
       },
     },
   });
+  console.log(users, "users");
   const usersCount = await prisma.user.count();
   if (!users) notFound();
   const usersWithStatusCount = users.map((user) => {

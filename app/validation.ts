@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const taskValidation = z.object({
-  title: z.string().min(1, "Title is required").max(20, "Title is too long"),
+  title: z.string().min(1, "Title is required").max(55, "Title is too long"),
   description: z
     .string()
     .min(10, "Description is too short")
@@ -25,7 +25,7 @@ export const taskUpdateValidation = z.object({
 });
 
 export const createUserValidation = z.object({
-  name: z.string().min(1, "Name is required").max(16),
+  name: z.string().min(1, "Name is required").max(55, "Name is too long"),
   email: z.email(),
   password: z.string().min(8),
 });
