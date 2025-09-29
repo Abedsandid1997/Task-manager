@@ -12,14 +12,9 @@ import TasksActions from "@/components/tasksComponents/TasksActions";
 const Tasks = async ({
   searchParams,
 }: {
-  searchParams: {
-    orderBy: string;
-    status: string;
-    priority: string;
-    page: string;
-  };
+  searchParams: Promise<TaskQuery>;
 }) => {
-  const params = searchParams;
+  const params = await searchParams;
   const pageSize = 10;
   const page = parseInt(params.page) || 1;
   const statuses = ["TODO", "IN_PROGRESS", "DONE"];
