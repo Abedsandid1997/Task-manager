@@ -8,10 +8,10 @@ import React from "react";
 const Users = async ({
   searchParams,
 }: {
-  searchParams?: { page?: string };
+  searchParams: Promise<{ page: string }>;
 }) => {
-  const page = parseInt(searchParams?.page || "1", 10);
-  // const page = parseInt(params.page) || 1;
+  const params = await searchParams;
+  const page = parseInt(params.page) || 1;
   const pageSize = 10;
   const users = await prisma.user.findMany({
     skip: (page - 1) * pageSize,
