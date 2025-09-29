@@ -9,7 +9,16 @@ import { Priority, Status } from "@prisma/client";
 import Pagination from "@/components/Pagination";
 import TasksActions from "@/components/tasksComponents/TasksActions";
 
-const Tasks = async ({ searchParams }: { searchParams: TaskQuery }) => {
+const Tasks = async ({
+  searchParams,
+}: {
+  searchParams: {
+    orderBy: string;
+    status: string;
+    priority: string;
+    page: string;
+  };
+}) => {
   const params = await searchParams;
   const pageSize = 10;
   const page = parseInt(params.page) || 1;
