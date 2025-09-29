@@ -9,7 +9,7 @@ import { Priority, Status } from "@prisma/client";
 const page = async ({
   searchParams,
 }: {
-  searchParams: { status: Status; priority: Priority };
+  searchParams: Promise<{ status: Status; priority: Priority }>;
 }) => {
   const params = await searchParams;
   const statuses = Object.values(Status);
