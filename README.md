@@ -91,7 +91,6 @@
 
 **Admin Mode** – log in with this email and password:
 
-- Email: admin@gmail.com
-- Password: 11111111
+- If you would like to test the **Admin mode**, please send me an email at **abedsandeed2@gmail.com** so I can grant you admin permissions.
 
 **Developer Mode** – log in using the provided Google test account.
