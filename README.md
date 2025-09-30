@@ -40,11 +40,25 @@
 
 - Google Sign-In – log in directly with a Google account.
 
+---
+
 ### Dashboard
 
 - Available to both roles.
 
 - Admins can click on any priority or status to instantly filter tasks across the project.
+
+**The dashboard provides a project overview and quick insights for both roles:**
+
+- Latest Tasks – see the most recently created tasks.
+
+- Top 3 Developers – ranked by the number of completed tasks.
+
+- Task Summary – breakdown of tasks by status and priority.
+
+- Interactive Charts – statistics visualized with Recharts, making it easy to track project progress and workload distribution.
+
+---
 
 ## Tech Stack
 
@@ -60,6 +74,8 @@
 - **Charts & Tables:** Recharts, Radix Themes
 
 - **Other Utilities:** Axios, Bcrypt, React Hot Toast, React Markdown, SimpleMDE Editor, React Loading Skeleton
+
+---
 
 ## Demo / Test Accounts
 
