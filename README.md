@@ -1,5 +1,7 @@
 # App link: https://task-manager-gules-psi-84.vercel.app
 
+![Dashboard](public/dashboard.png)
+
 # Task Manager
 
 **Task Manager is a full-stack web application built to help companies manage projects in collaborative teams.**
@@ -7,6 +9,8 @@
 ## The app supports two main roles:
 
 ### Project Manager (Admin)
+
+![Admin tasks list](public/admin.png)
 
 - View all tasks
 
@@ -25,6 +29,8 @@
 ---
 
 ### Developer (User)
+
+![User tasks list](public/user.png)
 
 - View only their assigned tasks
 
