@@ -1,9 +1,11 @@
+import { auth } from "@/auth";
 import { TableLinks, TaskBadge } from "@/components";
 import { prisma } from "@/lib/prisma";
-import { Avatar, Card, Flex, Heading, Table } from "@radix-ui/themes";
+import { Avatar, Card, Flex, Heading, Table, Text } from "@radix-ui/themes";
 import React from "react";
 
 const LatestTasks = async () => {
+  const session = await auth();
   const tasks = await prisma.task.findMany({
     orderBy: {
       createdAt: "desc",
@@ -34,9 +36,13 @@ const LatestTasks = async () => {
               <Table.Cell>
                 <Flex justify="between" align="center" gap="3">
                   <Flex direction="column" gap="2">
-                    <TableLinks href={`/tasks/list/${task.id}`}>
-                      {task.title}
-                    </TableLinks>{" "}
+                    {session?.user?.role === "ADMIN" ? (
+                      <TableLinks href={`admin/tasks/${task.id}`}>
+                        {task.title}
+                      </TableLinks>
+                    ) : (
+                      <Text> {task.title}</Text>
+                    )}
                     <TaskBadge value={task.status} />
                     <TaskBadge value={task.priority} />
                   </Flex>

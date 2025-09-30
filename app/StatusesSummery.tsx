@@ -4,8 +4,11 @@ import React from "react";
 import StatusesRechart from "./StatusesRechart";
 import { prisma } from "@/lib/prisma";
 import { Status } from "@prisma/client";
+import { auth } from "@/auth";
+import Link from "next/link";
 
 const StatusesSummery = async () => {
+  const session = await auth();
   const done = await prisma.task.count({ where: { status: "DONE" } });
   const todo = await prisma.task.count({ where: { status: "TODO" } });
   const inProgress = await prisma.task.count({
@@ -23,7 +26,13 @@ const StatusesSummery = async () => {
         {statuses.map((s) => (
           <Card key={s.status}>
             <Flex gap="2" align="center" direction="column">
-              <TaskBadge value={s.status} />
+              {session?.user?.role === "ADMIN" ? (
+                <Link href={`/admin/tasks/list?status=${s.status}`}>
+                  <TaskBadge value={s.status} />
+                </Link>
+              ) : (
+                <TaskBadge value={s.status} />
+              )}
               <Text>{s.value}</Text>
             </Flex>
           </Card>

@@ -4,8 +4,10 @@ import React from "react";
 import { prisma } from "@/lib/prisma";
 import PriorityRechart from "./PriorityRechart";
 import { Priority } from "@prisma/client";
+import { auth } from "@/auth";
 
 const PrioritesSummery = async () => {
+  const session = await auth();
   const high = await prisma.task.count({ where: { priority: "HIGH" } });
   const medium = await prisma.task.count({ where: { priority: "MEDIUM" } });
   const low = await prisma.task.count({
@@ -22,9 +24,14 @@ const PrioritesSummery = async () => {
         {priorites.map((p) => (
           <Card key={p.priority}>
             <Flex gap="2" align="center" direction="column">
-              <Link href={`/tasks/list?priority=${p.priority}`}>
+              {session?.user?.role === "ADMIN" ? (
+                <Link href={`/admin/tasks/list?priority=${p.priority}`}>
+                  <TaskBadge value={p.priority} />
+                </Link>
+              ) : (
                 <TaskBadge value={p.priority} />
-              </Link>
+              )}
+
               <Text>{p.value}</Text>
             </Flex>
           </Card>

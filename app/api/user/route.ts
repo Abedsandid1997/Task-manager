@@ -27,7 +27,8 @@ export async function POST(request: NextRequest) {
   const validation = createUserValidation.safeParse(body);
   if (!validation.success)
     return NextResponse.json(validation.error, { status: 400 });
-  const { password, name, email } = body;
+  const { password, name } = body;
+  const email = body.email.toLowerCase();
   const existingUser = await prisma.user.findUnique({
     where: { email },
   });
