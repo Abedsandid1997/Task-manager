@@ -20,7 +20,7 @@ interface Props {
 const TasksTable = async ({ tasks, searchParams }: Props) => {
   return (
     <Card>
-      <Table.Root size="3" variant="surface">
+      <Table.Root size="2" variant="surface">
         <Table.Header>
           <Table.Row>
             {columns.map((column) => (

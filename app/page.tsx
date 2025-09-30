@@ -9,12 +9,12 @@ import TopUsers from "./TopUsers";
 const Home = () => {
   return (
     <Container>
-      <Grid columns={{ initial: "1", md: "2" }} gap="5">
-        <Flex gap="3" direction="column">
+      <Grid columns={{ initial: "1", md: "2" }} gap="5" className="h-full">
+        <Flex gap="3" direction="column" className="h-full overflow-auto">
           <LatestTasks />
           <TopUsers />
         </Flex>
-        <Flex gap="3" direction="column">
+        <Flex gap="3" direction="column" className="h-full overflow-auto">
           <PrioritesSummery />
           <StatusesSummery />
         </Flex>
