@@ -34,7 +34,7 @@ const LatestTasks = async () => {
               <Table.Cell>
                 <Flex justify="between" align="center" gap="3">
                   <Flex direction="column" gap="2">
-                    <TableLinks href={`/tasks/${task.id}`}>
+                    <TableLinks href={`/tasks/list/${task.id}`}>
                       {task.title}
                     </TableLinks>{" "}
                     <TaskBadge value={task.status} />
