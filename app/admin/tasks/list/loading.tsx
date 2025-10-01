@@ -22,9 +22,15 @@ const loading = () => {
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Priority</Table.ColumnHeaderCell>
-              <Table.ColumnHeaderCell>Created at</Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell className="hidden md:table-cell">
+                Status
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell className="hidden md:table-cell">
+                Priority
+              </Table.ColumnHeaderCell>
+              <Table.ColumnHeaderCell className="hidden md:table-cell">
+                Created at
+              </Table.ColumnHeaderCell>
             </Table.Row>
           </Table.Header>
 
